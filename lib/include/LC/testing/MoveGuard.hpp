@@ -32,7 +32,7 @@ namespace lc
 		template <typename T>
 		class MoveGuard : public MoveGuardBase
 		{
-			T m_value;
+			T m_value = T();
 			
 		public:
 			
@@ -55,6 +55,27 @@ namespace lc
 
 			T& value() { return m_value; }
 			const T& value() const { return m_value; }
+		};
+		
+		template <>
+		class MoveGuard<void> : public MoveGuardBase
+		{
+		public:
+			MoveGuard() = default;
+			MoveGuard(const MoveGuard&) = default;
+			MoveGuard(MoveGuard&& other) : MoveGuardBase(std::move(other)) {}
+
+			MoveGuard& operator=(const MoveGuard& other) {
+				MoveGuardBase::operator=(other);
+				return *this;
+			}
+			MoveGuard& operator=(MoveGuard&& other) {
+				MoveGuardBase::operator=(std::move(other));
+				return *this;
+			}
+
+			void value() {}
+			void value() const {}
 		};
 	}
 }
