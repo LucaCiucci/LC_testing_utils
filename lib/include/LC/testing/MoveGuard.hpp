@@ -37,6 +37,8 @@ namespace lc
 			MoveGuard() = default;
 			MoveGuard(const MoveGuard&) = default;
 			MoveGuard(MoveGuard&& other) : MoveGuardBase(std::move(other)), m_value(std::move(other.m_value)) {}
+			MoveGuard(T&& value) : m_value(std::move(value)) {}
+			MoveGuard(const T& value) : m_value(value) {}
 
 			MoveGuard& operator=(const MoveGuard& other) {
 				MoveGuardBase::operator=(other);
