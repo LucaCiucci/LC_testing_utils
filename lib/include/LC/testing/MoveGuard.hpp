@@ -23,6 +23,8 @@ namespace lc
 
 			size_t id() const { return m_id; }
 
+			static auto counterValue() { return id_counter; }
+
 		private:
 			size_t m_id = id_counter++;
 		};
