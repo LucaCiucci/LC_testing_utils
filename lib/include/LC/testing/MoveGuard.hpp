@@ -7,7 +7,7 @@ namespace lc
 	{
 		class MoveGuardBase
 		{
-			static size_t id_counter = 0;
+			static size_t id_counter;
 
 		public:
 
@@ -28,6 +28,8 @@ namespace lc
 		private:
 			size_t m_id = id_counter++;
 		};
+		
+		size_t MoveGuardBase::id_counter = 0;
 
 		template <typename T>
 		class MoveGuard : public MoveGuardBase
